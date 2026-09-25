@@ -536,9 +536,14 @@
 
                 updatePdf2WordProgress(75, "Generando archivo de Word (DOCX)...");
 
+                // Verificar si la librería cargó correctamente
+                if (typeof docx === 'undefined') {
+                    throw new Error("La librería de Word no se pudo cargar. Revisa tu conexión a internet o bloqueadores de anuncios.");
+                }
+
                 // Función vital: Elimina caracteres de control inválidos para XML que hacen fallar a docx.js
                 const sanitizeTextForXML = (str) => {
-                    if (!str) return "";
+                    if (typeof str !== 'string') return "";
                     // Filtro más estricto: Elimina cualquier caracter que no sea válido en XML 1.0
                     return str.replace(/[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD]/g, '');
                 };
@@ -553,20 +558,24 @@
                     const paragraphs = pageContent.split('\n');
                     
                     paragraphs.forEach(text => {
-                        // Limpiamos el texto antes de intentar meterlo al DOCX
-                        const cleanText = sanitizeTextForXML(text).trim();
-                        if(cleanText !== "") {
-                            docChildren.push(new Paragraph({
-                                children: [new TextRun({ text: cleanText })],
-                                spacing: { after: 120 }
-                            }));
+                        // try-catch interno por si algún fragmento de texto corrompe la generación
+                        try {
+                            const cleanText = sanitizeTextForXML(text).trim();
+                            if(cleanText !== "") {
+                                docChildren.push(new Paragraph({
+                                    children: [new TextRun({ text: cleanText })],
+                                    spacing: { after: 120 }
+                                }));
+                            }
+                        } catch (e) {
+                            console.warn("Párrafo omitido por caracteres inválidos", e);
                         }
                     });
                     
                     // Añadir salto de página si no es la última página y hay contenido
                     if (index < allText.length - 1 && docChildren.length > 0) {
                         docChildren.push(new Paragraph({
-                            children: [new TextRun({ text: "" })], // Objeto requerido en docx v8+
+                            children: [], // Array vacío es más seguro en v8 para saltos de página
                             pageBreakBefore: true
                         }));
                     }
@@ -577,7 +586,7 @@
                         properties: {},
                         children: docChildren.length > 0 ? docChildren : [
                             new Paragraph({
-                                children: [new TextRun({ text: "El documento PDF no contiene texto extraíble." })]
+                                children: [new TextRun({ text: "El documento PDF no contiene texto extraíble o es una imagen escaneada." })]
                             })
                         ]
                     }]
@@ -612,10 +621,31 @@
 
             } catch (error) {
                 console.error("Error al convertir PDF a Word:", error);
-                showToast("Error al procesar el archivo. El PDF puede estar protegido o escaneado como imagen pura.", "error");
+                
+                let errorMsg = "Error al procesar el archivo. El PDF puede estar protegido o escaneado como imagen pura.";
+                if (error.message && error.message.includes("Word no se pudo cargar")) {
+                    errorMsg = error.message;
+                }
+                
+                showToast(errorMsg, "error");
                 pdf2wordStatus.textContent = "Error en la conversión.";
+                
+                // Dar feedback visual de error en la barra de progreso
+                pdf2wordBar.classList.remove('bg-blue-500');
+                pdf2wordBar.classList.add('bg-red-500');
+                
                 processPdf2WordBtn.disabled = false;
                 processPdf2WordBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                
+                // Resetear la UI después de unos segundos para permitir reintentos limpios
+                setTimeout(() => {
+                    pdf2wordProgress.classList.add('hidden');
+                    pdf2wordBar.classList.remove('bg-red-500');
+                    pdf2wordBar.classList.add('bg-blue-500');
+                    pdf2wordBar.style.width = '0%';
+                    pdf2wordStatus.textContent = "Extrayendo texto...";
+                    pdf2wordPercent.textContent = "0%";
+                }, 4000);
             }
         });
 
