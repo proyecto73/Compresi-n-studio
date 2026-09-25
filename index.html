@@ -539,7 +539,8 @@
                 // Función vital: Elimina caracteres de control inválidos para XML que hacen fallar a docx.js
                 const sanitizeTextForXML = (str) => {
                     if (!str) return "";
-                    return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '');
+                    // Filtro más estricto: Elimina cualquier caracter que no sea válido en XML 1.0
+                    return str.replace(/[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD]/g, '');
                 };
 
                 // 4. Crear el documento de Word usando docx.js
@@ -556,7 +557,7 @@
                         const cleanText = sanitizeTextForXML(text).trim();
                         if(cleanText !== "") {
                             docChildren.push(new Paragraph({
-                                children: [new TextRun(cleanText)],
+                                children: [new TextRun({ text: cleanText })],
                                 spacing: { after: 120 }
                             }));
                         }
@@ -565,7 +566,7 @@
                     // Añadir salto de página si no es la última página y hay contenido
                     if (index < allText.length - 1 && docChildren.length > 0) {
                         docChildren.push(new Paragraph({
-                            children: [new TextRun("")], // Asegurar que el párrafo no esté vacío por compatibilidad
+                            children: [new TextRun({ text: "" })], // Objeto requerido en docx v8+
                             pageBreakBefore: true
                         }));
                     }
@@ -574,7 +575,11 @@
                 const doc = new Document({
                     sections: [{
                         properties: {},
-                        children: docChildren.length > 0 ? docChildren : [new Paragraph("El documento PDF no contiene texto extraíble.")]
+                        children: docChildren.length > 0 ? docChildren : [
+                            new Paragraph({
+                                children: [new TextRun({ text: "El documento PDF no contiene texto extraíble." })]
+                            })
+                        ]
                     }]
                 });
 
