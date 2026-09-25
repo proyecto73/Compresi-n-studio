@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDFCompress Studio - Herramientas y Optimización PDF</title>
+    <title>PDFCompress Studio - Herramientas y Optimización PDF e Imágenes</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -51,7 +51,7 @@
             const manifest = {
                 name: "PDFCompress Studio",
                 short_name: "PDFCompress",
-                description: "Optimiza, organiza, une, divide y analiza tus documentos PDF localmente con privacidad absoluta.",
+                description: "Optimiza, organiza, une, divide y analiza tus documentos PDF e imágenes localmente con privacidad absoluta.",
                 start_url: "./",
                 display: "standalone",
                 background_color: "#09090b",
@@ -124,7 +124,7 @@
                     <h1 class="font-bold text-lg leading-tight tracking-tight text-white flex items-center gap-2">
                         PDFCompress <span class="text-xs px-2 py-0.5 bg-blood-950 text-blood-400 border border-blood-800 rounded-full font-mono">Studio</span>
                     </h1>
-                    <p class="text-xs text-zinc-400 font-normal">Suite de Herramientas y Gestión Local de PDF</p>
+                    <p class="text-xs text-zinc-400 font-normal">Suite de Herramientas para PDF e Imágenes</p>
                 </div>
             </div>
 
@@ -132,7 +132,7 @@
                 <!-- Status Badge -->
                 <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-900 text-blood-400 border border-blood-900/40">
                     <span class="w-1.5 h-1.5 rounded-full bg-blood-600 animate-pulse"></span>
-                    Privacidad en Navegador
+                    Privacidad Local 100%
                 </span>
 
                 <!-- Gemini API Key Modal Trigger -->
@@ -173,7 +173,7 @@
 
             <button data-tab="merge" class="tab-btn hover:text-white px-4 py-2.5 rounded-t-xl transition flex items-center gap-2">
                 <svg class="w-4 h-4 text-blood-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                Unir PDFs
+                Unir PDFs / Imágenes
             </button>
 
             <button data-tab="split" class="tab-btn hover:text-white px-4 py-2.5 rounded-t-xl transition flex items-center gap-2">
@@ -191,20 +191,20 @@
     <!-- Main Workspace -->
     <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 flex flex-col justify-start">
 
-        <!-- ================= TAB 1: COMPRESOR DE PDF ================= -->
+        <!-- ================= TAB 1: COMPRESOR DE PDF E IMÁGENES ================= -->
         <section id="tab-compress" class="tab-content space-y-6">
             <div class="text-center space-y-2">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Optimiza tus archivos PDF
+                    Optimiza tus archivos PDF e Imágenes
                 </h2>
                 <p class="text-zinc-400 text-xs sm:text-sm max-w-md mx-auto">
-                    Ajusta el peso y la resolución de tus documentos de forma privada sin enviar datos a la nube.
+                    Comprime y convierte archivos PDF o fotos (JPG, JPEG, PNG, WEBP) de forma privada sin subir nada a servidores externos.
                 </p>
             </div>
 
             <!-- Drop Zone / Upload Area -->
             <div id="dropZone" class="relative group cursor-pointer border-2 border-dashed border-zinc-800 hover:border-blood-700 rounded-3xl p-8 sm:p-12 text-center transition-all duration-300 bg-zinc-900/40 hover:bg-zinc-900/80 backdrop-blur-sm shadow-xl">
-                <input type="file" id="fileInput" accept="application/pdf" class="hidden">
+                <input type="file" id="fileInput" accept="application/pdf,image/jpeg,image/png,image/webp,image/jpg" class="hidden">
                 <div class="flex flex-col items-center justify-center space-y-4">
                     <div class="p-4 bg-zinc-900 rounded-2xl group-hover:scale-105 group-hover:bg-blood-950/60 text-blood-500 transition duration-300 border border-zinc-800 group-hover:border-blood-800/50 shadow-inner">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,13 +212,13 @@
                         </svg>
                     </div>
                     <div class="space-y-1">
-                        <p class="text-base font-medium text-zinc-200">Arrastra tu archivo PDF aquí</p>
-                        <p class="text-xs text-zinc-400">o <span class="text-blood-400 font-medium hover:text-blood-300">selecciónalo desde tus archivos</span></p>
+                        <p class="text-base font-medium text-zinc-200">Arrastra tu archivo PDF o Imagen (JPG, PNG) aquí</p>
+                        <p class="text-xs text-zinc-400">o <span class="text-blood-400 font-medium hover:text-blood-300">haz clic para seleccionar tu documento o foto</span></p>
                     </div>
                     <div class="flex items-center justify-center gap-4 text-xs text-zinc-500 pt-2 font-mono">
-                        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blood-600"></span>Procesamiento local</span>
+                        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blood-600"></span>PDF & Imágenes</span>
                         <span>•</span>
-                        <span>Privacidad 100%</span>
+                        <span>Privacidad 100% Local</span>
                     </div>
                 </div>
             </div>
@@ -237,7 +237,8 @@
                             <h3 id="fileName" class="font-semibold text-zinc-100 truncate text-sm sm:text-base">documento.pdf</h3>
                             <div class="flex items-center gap-3 text-xs text-zinc-400 mt-0.5 font-mono">
                                 <span id="fileOriginalSize" class="bg-zinc-900 px-2 py-0.5 rounded text-zinc-300 border border-zinc-800">0 MB</span>
-                                <span id="filePageCount" class="text-zinc-400">0 páginas</span>
+                                <span id="filePageCount" class="text-zinc-400">1 página</span>
+                                <span id="fileFileTypeBadge" class="bg-blood-950/80 text-blood-400 border border-blood-900 px-2 py-0.5 rounded text-[10px] uppercase font-bold">PDF</span>
                             </div>
                         </div>
                     </div>
@@ -328,7 +329,7 @@
                 </div>
                 <div class="space-y-1">
                     <h3 class="text-lg font-bold text-zinc-100">Procesando archivo...</h3>
-                    <p id="progressStatusText" class="text-xs text-zinc-400">Optimizando páginas y gráficos...</p>
+                    <p id="progressStatusText" class="text-xs text-zinc-400">Optimizando contenido y páginas...</p>
                 </div>
                 <div class="w-full bg-zinc-950 rounded-full h-2.5 p-0.5 border border-zinc-800 overflow-hidden">
                     <div id="progressBarFill" class="bg-gradient-to-r from-blood-800 to-rose-600 h-full rounded-full transition-all duration-300 w-0"></div>
@@ -363,7 +364,7 @@
                 <div class="flex flex-col sm:flex-row gap-3">
                     <button id="downloadBtn" class="flex-1 py-3.5 bg-blood-800 hover:bg-blood-700 text-white font-semibold text-sm rounded-2xl transition duration-200 shadow-lg shadow-blood-950 border border-blood-700/50 flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        <span>Descargar PDF</span>
+                        <span>Descargar PDF Comprimido</span>
                     </button>
                     <button id="resetBtn" class="px-5 py-3.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-medium text-sm rounded-2xl transition border border-zinc-700">
                         Otro Archivo
@@ -378,17 +379,17 @@
             <div class="text-center space-y-2">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Organizador de Páginas</h2>
                 <p class="text-zinc-400 text-xs sm:text-sm max-w-md mx-auto">
-                    Rota, elimina o reordena la secuencia de páginas de tu documento interactivamente.
+                    Rota, elimina o reordena páginas de tus PDFs o fotos subidas.
                 </p>
             </div>
 
             <div id="orgDropZone" class="cursor-pointer border-2 border-dashed border-zinc-800 hover:border-blood-700 rounded-3xl p-8 text-center transition bg-zinc-900/40">
-                <input type="file" id="orgFileInput" accept="application/pdf" class="hidden">
+                <input type="file" id="orgFileInput" accept="application/pdf,image/jpeg,image/png,image/webp,image/jpg" class="hidden">
                 <div class="flex flex-col items-center gap-3">
                     <div class="p-3 bg-zinc-900 text-blood-500 rounded-2xl border border-zinc-800">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
                     </div>
-                    <p class="text-sm font-medium text-zinc-200">Carga o arrastra un PDF para reorganizar páginas</p>
+                    <p class="text-sm font-medium text-zinc-200">Carga o arrastra un PDF o imagen para reorganizar</p>
                 </div>
             </div>
 
@@ -414,22 +415,22 @@
         </section>
 
 
-        <!-- ================= TAB 3: UNIR PDFS ================= -->
+        <!-- ================= TAB 3: UNIR PDFS E IMÁGENES ================= -->
         <section id="tab-merge" class="tab-content hidden space-y-6">
             <div class="text-center space-y-2">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Unir Múltiples PDFs</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Unir PDFs e Imágenes</h2>
                 <p class="text-zinc-400 text-xs sm:text-sm max-w-md mx-auto">
-                    Combina varios archivos PDF en un solo documento consolidado.
+                    Combina varios archivos PDF y/o imágenes (JPG, PNG) en un único PDF consolidado.
                 </p>
             </div>
 
             <div id="mergeDropZone" class="cursor-pointer border-2 border-dashed border-zinc-800 hover:border-blood-700 rounded-3xl p-8 text-center transition bg-zinc-900/40">
-                <input type="file" id="mergeFileInput" accept="application/pdf" multiple class="hidden">
+                <input type="file" id="mergeFileInput" accept="application/pdf,image/jpeg,image/png,image/webp,image/jpg" multiple class="hidden">
                 <div class="flex flex-col items-center gap-3">
                     <div class="p-3 bg-zinc-900 text-blood-500 rounded-2xl border border-zinc-800">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     </div>
-                    <p class="text-sm font-medium text-zinc-200">Haz clic o arrastra para añadir varios archivos PDF</p>
+                    <p class="text-sm font-medium text-zinc-200">Haz clic o arrastra para añadir varios archivos PDF o imágenes</p>
                 </div>
             </div>
 
@@ -443,7 +444,7 @@
 
                 <button id="processMergeBtn" class="w-full py-3.5 bg-blood-800 hover:bg-blood-700 text-white font-semibold rounded-2xl transition border border-blood-700 flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                    <span>Unir y Descargar PDF</span>
+                    <span>Unir y Descargar PDF Único</span>
                 </button>
             </div>
         </section>
@@ -459,7 +460,7 @@
             </div>
 
             <div id="splitDropZone" class="cursor-pointer border-2 border-dashed border-zinc-800 hover:border-blood-700 rounded-3xl p-8 text-center transition bg-zinc-900/40">
-                <input type="file" id="splitFileInput" accept="application/pdf" class="hidden">
+                <input type="file" id="splitFileInput" accept="application/pdf,image/jpeg,image/png,image/webp,image/jpg" class="hidden">
                 <div class="flex flex-col items-center gap-3">
                     <div class="p-3 bg-zinc-900 text-blood-500 rounded-2xl border border-zinc-800">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m0 0l-2-1m2 1v2.5M14 4l-2 1m0 0l-2-1m2 1v2.5M4 7l2-1m-2 1l2 1m-2-1v2.5m0 6l2-1m-2 1l2 1m-2-1v2.5"/></svg>
@@ -519,16 +520,16 @@
                 </p>
             </div>
 
-            <!-- Upload PDF for AI -->
+            <!-- Upload PDF/Image for AI -->
             <div id="aiDropZone" class="cursor-pointer border-2 border-dashed border-zinc-800 hover:border-blood-700 rounded-3xl p-6 text-center transition bg-zinc-900/40">
-                <input type="file" id="aiFileInput" accept="application/pdf" class="hidden">
+                <input type="file" id="aiFileInput" accept="application/pdf,image/jpeg,image/png,image/webp,image/jpg" class="hidden">
                 <div class="flex items-center justify-center gap-3">
                     <div class="p-2.5 bg-zinc-900 text-blood-500 rounded-xl border border-zinc-800">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
                     </div>
                     <div class="text-left">
-                        <p id="aiLoadedFileName" class="text-sm font-semibold text-zinc-200">Cargar o arrastrar PDF para análisis con IA</p>
-                        <p id="aiLoadedFileDetails" class="text-xs text-zinc-500 font-mono">Haz clic o suelta aquí un documento PDF</p>
+                        <p id="aiLoadedFileName" class="text-sm font-semibold text-zinc-200">Cargar o arrastrar PDF/Imagen para análisis con IA</p>
+                        <p id="aiLoadedFileDetails" class="text-xs text-zinc-500 font-mono">Haz clic o suelta aquí un documento o imagen</p>
                     </div>
                 </div>
             </div>
@@ -541,7 +542,7 @@
                 </button>
                 <button data-aitab="chat" class="aitab-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 p-3 rounded-2xl text-xs font-semibold flex flex-col items-center gap-1.5 transition">
                     <svg class="w-4 h-4 text-blood-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                    Chatear con PDF
+                    Chatear con PDF/Imagen
                 </button>
                 <button data-aitab="extract" class="aitab-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 p-3 rounded-2xl text-xs font-semibold flex flex-col items-center gap-1.5 transition">
                     <svg class="w-4 h-4 text-blood-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -549,7 +550,7 @@
                 </button>
                 <button data-aitab="translate" class="aitab-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 p-3 rounded-2xl text-xs font-semibold flex flex-col items-center gap-1.5 transition">
                     <svg class="w-4 h-4 text-blood-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1 0a8 8 0 01-7 7m1 0a8 8 0 0013 0m-13 0l-1 2m14 2a8 8 0 01-7-7m7 7l1 2m-1-2v-2"/></svg>
-                    Traducir PDF
+                    Traducir Contenido
                 </button>
             </div>
 
@@ -566,7 +567,7 @@
                         </button>
                     </div>
                     <div id="summaryOutput" class="p-4 bg-zinc-950 rounded-2xl border border-zinc-800 text-xs text-zinc-300 leading-relaxed whitespace-pre-wrap max-h-96 overflow-y-auto font-sans">
-                        Carga un documento PDF y presiona "Generar Resumen" para obtener una síntesis completa.
+                        Carga un documento PDF o imagen y presiona "Generar Resumen" para obtener una síntesis completa.
                     </div>
                 </div>
 
@@ -575,11 +576,11 @@
                     <h4 class="text-sm font-bold text-white">Pregunta o Chatea con tu Documento</h4>
                     <div id="chatHistory" class="p-4 bg-zinc-950 rounded-2xl border border-zinc-800 text-xs text-zinc-300 h-64 overflow-y-auto space-y-3 font-sans">
                         <div class="p-3 bg-zinc-900/80 rounded-xl border border-zinc-800 text-zinc-400">
-                            🤖 Hola. Puedes preguntarme cualquier detalle del PDF cargado (fechas, cláusulas, datos específicos, etc.).
+                            🤖 Hola. Puedes preguntarme cualquier detalle del documento o imagen cargada.
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <input type="text" id="chatInput" placeholder="Escribe tu pregunta sobre el PDF..." class="flex-1 px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:border-blood-600 focus:outline-none">
+                        <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." class="flex-1 px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:border-blood-600 focus:outline-none">
                         <button id="sendChatBtn" class="px-4 py-2.5 bg-blood-800 hover:bg-blood-700 text-white font-medium text-xs rounded-xl transition border border-blood-700">
                             Enviar
                         </button>
@@ -595,7 +596,7 @@
                         </button>
                     </div>
                     <div id="extractOutput" class="p-4 bg-zinc-950 rounded-2xl border border-zinc-800 text-xs text-zinc-300 leading-relaxed whitespace-pre-wrap max-h-96 overflow-y-auto font-sans">
-                        Presiona el botón para identificar automáticamente fechas, conclusiones principales y aspectos clave del documento.
+                        Presiona el botón para identificar automáticamente fechas, conclusiones principales y aspectos clave.
                     </div>
                 </div>
 
@@ -618,7 +619,7 @@
                         </button>
                     </div>
                     <div id="translateOutput" class="p-4 bg-zinc-950 rounded-2xl border border-zinc-800 text-xs text-zinc-300 leading-relaxed whitespace-pre-wrap max-h-96 overflow-y-auto font-sans">
-                        Elige el idioma de salida para obtener la traducción del texto principal de tu PDF.
+                        Elige el idioma de salida para obtener la traducción de tu archivo.
                     </div>
                 </div>
 
@@ -700,23 +701,24 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        // Global Window Prevent Default for File Drag & Drop (Prevents Browser Navigation)
+        // Global Window Prevent Default for File Drag & Drop
         ['dragover', 'drop'].forEach(eventName => {
             window.addEventListener(eventName, (e) => e.preventDefault(), false);
         });
 
         // Global State
         let currentCompressFile = null;
+        let currentPdfArrayBuffer = null;
         let compressedPdfBlob = null;
         let userGeminiApiKey = localStorage.getItem('gemini_api_key') || '';
         let deferredPrompt = null;
 
         // Tool 2 State: Organizer
-        let orgPagesList = []; // Array of objects { pageNum: int, rotation: int }
+        let orgPagesList = []; 
         let rawOrgArrayBuffer = null;
 
         // Tool 3 State: Merge
-        let mergeFiles = []; // Array of File objects
+        let mergeFiles = []; 
 
         // Tool 4 State: Split
         let splitFile = null;
@@ -724,7 +726,59 @@
         // Tool 5 State: Gemini
         let aiFile = null;
 
-        // ================= HELPER FOR SAFE DROPZONE SETUP =================
+        // ================= UNIVERSAL FILE FORMAT CONVERTER =================
+        // Automatically converts Image files (JPG, PNG, WEBP) to PDF ArrayBuffer on-the-fly
+        async function fileToPdfArrayBuffer(file) {
+            if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                return await file.arrayBuffer();
+            }
+
+            // File is an image (JPG, JPEG, PNG, WEBP, etc.)
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = async function() {
+                        try {
+                            const pdfDoc = await PDFLib.PDFDocument.create();
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.naturalWidth || img.width;
+                            canvas.height = img.naturalHeight || img.height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0);
+
+                            const imgDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+                            const imgBytes = await fetch(imgDataUrl).then(r => r.arrayBuffer());
+
+                            const embeddedImg = await pdfDoc.embedJpg(imgBytes);
+                            const page = pdfDoc.addPage([canvas.width, canvas.height]);
+                            page.drawImage(embeddedImg, {
+                                x: 0,
+                                y: 0,
+                                width: canvas.width,
+                                height: canvas.height
+                            });
+
+                            const pdfBytes = await pdfDoc.save();
+                            resolve(pdfBytes.buffer);
+                        } catch (err) {
+                            reject(err);
+                        }
+                    };
+                    img.onerror = () => reject(new Error('No se pudo cargar la imagen.'));
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => reject(new Error('Error al leer el archivo.'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function isImageFile(file) {
+            if (!file) return false;
+            return file.type.startsWith('image/') || /\.(jpg|jpeg|png|webp)$/i.test(file.name);
+        }
+
+        // Helper for safe dropzone setup supporting both PDFs and Images
         function setupDropZone(zoneElem, inputElem, onFilesSelected) {
             if (!zoneElem || !inputElem) return;
 
@@ -757,11 +811,15 @@
             zoneElem.addEventListener('drop', (e) => {
                 const files = e.dataTransfer ? e.dataTransfer.files : null;
                 if (files && files.length) {
-                    const validPdfs = Array.from(files).filter(f => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf'));
-                    if (validPdfs.length) {
-                        onFilesSelected(validPdfs);
+                    const validFiles = Array.from(files).filter(f => 
+                        f.type === 'application/pdf' || 
+                        f.type.startsWith('image/') || 
+                        /\.(pdf|jpg|jpeg|png|webp)$/i.test(f.name)
+                    );
+                    if (validFiles.length) {
+                        onFilesSelected(validFiles);
                     } else {
-                        showToast('Por favor selecciona un archivo PDF válido.', 'error');
+                        showToast('Selecciona un archivo PDF o imagen válido (JPG, PNG).', 'error');
                     }
                 }
             });
@@ -804,6 +862,7 @@
         const fileName = document.getElementById('fileName');
         const fileOriginalSize = document.getElementById('fileOriginalSize');
         const filePageCount = document.getElementById('filePageCount');
+        const fileFileTypeBadge = document.getElementById('fileFileTypeBadge');
         const changeFileBtn = document.getElementById('changeFileBtn');
 
         const qualitySlider = document.getElementById('qualitySlider');
@@ -868,9 +927,17 @@
             fileName.textContent = file.name;
             fileOriginalSize.textContent = formatBytes(file.size);
 
+            if (isImageFile(file)) {
+                fileFileTypeBadge.textContent = 'IMAGEN';
+            } else {
+                fileFileTypeBadge.textContent = 'PDF';
+            }
+
             try {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+                // Convert Image or Load PDF
+                currentPdfArrayBuffer = await fileToPdfArrayBuffer(file);
+                const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(currentPdfArrayBuffer) }).promise;
+                
                 filePageCount.textContent = `${pdf.numPages} ${pdf.numPages === 1 ? 'página' : 'páginas'}`;
                 dropZone.classList.add('hidden');
                 optionsCard.classList.remove('hidden');
@@ -880,12 +947,12 @@
                 if (typeof pdf.destroy === 'function') pdf.destroy();
             } catch (err) {
                 console.error(err);
-                showToast('Error al leer el PDF.', 'error');
+                showToast('Error al procesar el archivo cargado.', 'error');
             }
         }
 
         compressBtn.addEventListener('click', async () => {
-            if (!currentCompressFile) return;
+            if (!currentCompressFile || !currentPdfArrayBuffer) return;
 
             optionsCard.classList.add('hidden');
             progressCard.classList.remove('hidden');
@@ -895,8 +962,7 @@
             const isGrayscale = grayscaleToggle.checked;
 
             try {
-                const fileArrayBuffer = await currentCompressFile.arrayBuffer();
-                const pdfDoc = await pdfjsLib.getDocument({ data: new Uint8Array(fileArrayBuffer) }).promise;
+                const pdfDoc = await pdfjsLib.getDocument({ data: new Uint8Array(currentPdfArrayBuffer) }).promise;
                 const numPages = pdfDoc.numPages;
                 const newPdfDoc = await PDFLib.PDFDocument.create();
 
@@ -934,7 +1000,7 @@
                     if (typeof page.cleanup === 'function') page.cleanup();
                 }
 
-                progressStatusText.textContent = 'Guardando PDF comprimido...';
+                progressStatusText.textContent = 'Guardando archivo comprimido...';
                 const compressedPdfBytes = await newPdfDoc.save();
                 compressedPdfBlob = new Blob([compressedPdfBytes], { type: 'application/pdf' });
 
@@ -967,13 +1033,15 @@
 
         downloadBtn.addEventListener('click', () => {
             if (!compressedPdfBlob) return;
-            downloadBlob(compressedPdfBlob, currentCompressFile.name.replace(/\.pdf$/i, '_optimizado.pdf'));
+            const outputName = currentCompressFile.name.replace(/\.[^/.]+$/, "") + '_comprimido.pdf';
+            downloadBlob(compressedPdfBlob, outputName);
         });
 
         resetBtn.addEventListener('click', () => resetCompressUI());
 
         function resetCompressUI() {
             currentCompressFile = null;
+            currentPdfArrayBuffer = null;
             compressedPdfBlob = null;
             fileInput.value = '';
             resultCard.classList.add('hidden');
@@ -1000,7 +1068,7 @@
 
         async function loadOrganizerDoc(file) {
             try {
-                rawOrgArrayBuffer = await file.arrayBuffer();
+                rawOrgArrayBuffer = await fileToPdfArrayBuffer(file);
                 const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(rawOrgArrayBuffer) }).promise;
                 orgPagesList = [];
                 for (let i = 1; i <= pdf.numPages; i++) {
@@ -1133,7 +1201,7 @@
 
                 const pdfBytes = await newDoc.save();
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                downloadBlob(blob, 'pdf_reorganizado.pdf');
+                downloadBlob(blob, 'documento_reorganizado.pdf');
                 showToast('Documento reorganizado exportado con éxito');
             } catch (e) {
                 console.error(e);
@@ -1142,7 +1210,7 @@
         });
 
 
-        // ================= UNIR PDFS LOGIC =================
+        // ================= UNIR PDFS E IMÁGENES LOGIC =================
         const mergeDropZone = document.getElementById('mergeDropZone');
         const mergeFileInput = document.getElementById('mergeFileInput');
         const mergeListContainer = document.getElementById('mergeListContainer');
@@ -1176,10 +1244,13 @@
             mergeFiles.forEach((file, idx) => {
                 const row = document.createElement('div');
                 row.className = "flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs";
+                const fileTypeLabel = isImageFile(file) ? 'IMAGEN' : 'PDF';
+
                 row.innerHTML = `
                     <div class="flex items-center gap-3 truncate">
                         <span class="font-mono text-blood-400 font-bold">${idx + 1}.</span>
                         <span class="font-medium text-zinc-200 truncate">${file.name}</span>
+                        <span class="text-[9px] bg-zinc-900 border border-zinc-800 text-blood-400 px-1.5 py-0.5 rounded font-mono">${fileTypeLabel}</span>
                         <span class="text-[10px] text-zinc-500 font-mono">(${formatBytes(file.size)})</span>
                     </div>
                     <div class="flex items-center gap-1">
@@ -1208,8 +1279,8 @@
         };
 
         processMergeBtn.addEventListener('click', async () => {
-            if (mergeFiles.length < 2) {
-                showToast('Añade al menos 2 archivos para unir.', 'error');
+            if (mergeFiles.length < 1) {
+                showToast('Añade al menos 1 archivo para procesar.', 'error');
                 return;
             }
 
@@ -1217,7 +1288,7 @@
                 const mergedDoc = await PDFLib.PDFDocument.create();
 
                 for (const file of mergeFiles) {
-                    const bytes = await file.arrayBuffer();
+                    const bytes = await fileToPdfArrayBuffer(file);
                     const pdf = await PDFLib.PDFDocument.load(bytes);
                     const pages = await mergedDoc.copyPages(pdf, pdf.getPageIndices());
                     pages.forEach(p => mergedDoc.addPage(p));
@@ -1225,11 +1296,11 @@
 
                 const mergedBytes = await mergedDoc.save();
                 const blob = new Blob([mergedBytes], { type: 'application/pdf' });
-                downloadBlob(blob, 'pdf_unido.pdf');
-                showToast('Archivos PDF unidos correctamente');
+                downloadBlob(blob, 'archivos_unidos.pdf');
+                showToast('Archivos e imágenes unidos correctamente');
             } catch (err) {
                 console.error(err);
-                showToast('Error al unir archivos PDF.', 'error');
+                showToast('Error al unir los archivos.', 'error');
             }
         });
 
@@ -1248,7 +1319,7 @@
             if (files[0]) {
                 splitFile = files[0];
                 splitFileName.textContent = splitFile.name;
-                const buffer = await splitFile.arrayBuffer();
+                const buffer = await fileToPdfArrayBuffer(splitFile);
                 const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buffer) }).promise;
                 splitPageCount.textContent = `${pdf.numPages} páginas`;
                 splitDropZone.classList.add('hidden');
@@ -1271,7 +1342,7 @@
             if (!splitFile) return;
 
             const mode = document.querySelector('input[name="splitMode"]:checked').value;
-            const fileBytes = await splitFile.arrayBuffer();
+            const fileBytes = await fileToPdfArrayBuffer(splitFile);
             const srcDoc = await PDFLib.PDFDocument.load(fileBytes);
             const totalPages = srcDoc.getPageCount();
 
@@ -1283,7 +1354,7 @@
                         newDoc.addPage(page);
                         const pdfBytes = await newDoc.save();
                         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                        downloadBlob(blob, `${splitFile.name.replace(/\.pdf$/i, '')}_pag_${i + 1}.pdf`);
+                        downloadBlob(blob, `${splitFile.name.replace(/\.[^/.]+$/, '')}_pag_${i + 1}.pdf`);
                     }
                     showToast(`Generadas ${totalPages} páginas separadas`);
                 } else {
@@ -1305,7 +1376,7 @@
 
                     const pdfBytes = await newDoc.save();
                     const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                    downloadBlob(blob, `${splitFile.name.replace(/\.pdf$/i, '')}_extraido.pdf`);
+                    downloadBlob(blob, `${splitFile.name.replace(/\.[^/.]+$/, '')}_extraido.pdf`);
                     showToast('Rango extraído exitosamente');
                 }
             } catch (err) {
@@ -1440,13 +1511,13 @@
         async function extractTextFromAiFile() {
             if (!aiFile && currentCompressFile) setAiFile(currentCompressFile);
             if (!aiFile) {
-                showToast('Primero carga un archivo PDF en la app.', 'error');
+                showToast('Primero carga un archivo en el módulo de IA.', 'error');
                 return '';
             }
 
             let pdfDoc = null;
             try {
-                const arrayBuffer = await aiFile.arrayBuffer();
+                const arrayBuffer = await fileToPdfArrayBuffer(aiFile);
                 pdfDoc = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
                 let fullText = '';
                 const maxPages = Math.min(pdfDoc.numPages, 15);
@@ -1457,10 +1528,14 @@
                     fullText += `--- PÁGINA ${i} ---\n${pageText}\n\n`;
                     if (typeof page.cleanup === 'function') page.cleanup();
                 }
+
+                if (!fullText.trim() && isImageFile(aiFile)) {
+                    return `[Archivo de imagen: ${aiFile.name}]`;
+                }
                 return fullText;
             } catch (err) {
-                console.error('Error extrayendo texto del PDF:', err);
-                showToast('Error al leer el texto del documento.', 'error');
+                console.error('Error extrayendo texto:', err);
+                showToast('Error al leer el contenido del archivo.', 'error');
                 return '';
             } finally {
                 if (pdfDoc && typeof pdfDoc.destroy === 'function') {
@@ -1498,12 +1573,12 @@
         // Action: Summary
         runSummaryBtn.addEventListener('click', async () => {
             try {
-                summaryOutput.textContent = 'Procesando texto del PDF con Gemini IA...';
+                summaryOutput.textContent = 'Procesando archivo con Gemini IA...';
                 const pdfText = await extractTextFromAiFile();
                 if (!pdfText.trim()) return;
 
                 const sys = "Eres un analista de documentos ejecutivo en español. Genera resúmenes estructurados, claros y directos.";
-                const prompt = `Analiza y sintetiza el siguiente documento PDF en un resumen ejecutivo estructurado:\n\n${pdfText.substring(0, 15000)}`;
+                const prompt = `Analiza y sintetiza el siguiente documento/contenido en un resumen ejecutivo estructurado:\n\n${pdfText.substring(0, 15000)}`;
 
                 const reply = await callGeminiApi(sys, prompt);
                 summaryOutput.textContent = reply;
@@ -1528,7 +1603,7 @@
                 if (!pdfText) return;
 
                 appendChatMessage('ai', 'Pensando...');
-                const sys = "Eres un asistente experto que responde preguntas específicas basadas ÚNICAMENTE en el contenido del documento PDF provisto. Si el dato no aparece en el texto, indícalo educadamente.";
+                const sys = "Eres un asistente experto que responde preguntas específicas basadas en el contenido provisto. Si el dato no aparece, indícalo educadamente.";
                 const prompt = `DOCUMENTO DE REFERENCIA:\n${pdfText.substring(0, 15000)}\n\nPREGUNTA DEL USUARIO:\n${query}`;
 
                 const reply = await callGeminiApi(sys, prompt);
@@ -1564,7 +1639,7 @@
                 if (!pdfText.trim()) return;
 
                 const sys = "Eres un analista de datos y documentos. Extrae en puntos numerados y viñetas claras: 1. Puntos Clave, 2. Fechas Importantes, 3. Cifras o Datos Relevantes, 4. Conclusiones Principales.";
-                const prompt = `Analiza el siguiente texto extraído de un PDF e identifica los elementos solicitados:\n\n${pdfText.substring(0, 15000)}`;
+                const prompt = `Analiza el siguiente texto e identifica los elementos solicitados:\n\n${pdfText.substring(0, 15000)}`;
 
                 const reply = await callGeminiApi(sys, prompt);
                 extractOutput.textContent = reply;
@@ -1582,7 +1657,7 @@
                 if (!pdfText.trim()) return;
 
                 const sys = `Eres un traductor profesional. Traduce el texto provisto fielmente al idioma ${targetLang}, manteniendo un tono adecuado y profesional.`;
-                const prompt = `Traduce el siguiente contenido extraído de un PDF al ${targetLang}:\n\n${pdfText.substring(0, 15000)}`;
+                const prompt = `Traduce el siguiente contenido al ${targetLang}:\n\n${pdfText.substring(0, 15000)}`;
 
                 const reply = await callGeminiApi(sys, prompt);
                 translateOutput.textContent = reply;
