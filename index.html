@@ -536,6 +536,12 @@
 
                 updatePdf2WordProgress(75, "Generando archivo de Word (DOCX)...");
 
+                // Función vital: Elimina caracteres de control inválidos para XML que hacen fallar a docx.js
+                const sanitizeTextForXML = (str) => {
+                    if (!str) return "";
+                    return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '');
+                };
+
                 // 4. Crear el documento de Word usando docx.js
                 const { Document, Packer, Paragraph, TextRun } = docx;
                 
@@ -546,17 +552,20 @@
                     const paragraphs = pageContent.split('\n');
                     
                     paragraphs.forEach(text => {
-                        if(text.trim() !== "") {
+                        // Limpiamos el texto antes de intentar meterlo al DOCX
+                        const cleanText = sanitizeTextForXML(text).trim();
+                        if(cleanText !== "") {
                             docChildren.push(new Paragraph({
-                                children: [new TextRun(text)],
+                                children: [new TextRun(cleanText)],
                                 spacing: { after: 120 }
                             }));
                         }
                     });
                     
-                    // Añadir salto de página si no es la última página
-                    if (index < allText.length - 1) {
+                    // Añadir salto de página si no es la última página y hay contenido
+                    if (index < allText.length - 1 && docChildren.length > 0) {
                         docChildren.push(new Paragraph({
+                            children: [new TextRun("")], // Asegurar que el párrafo no esté vacío por compatibilidad
                             pageBreakBefore: true
                         }));
                     }
